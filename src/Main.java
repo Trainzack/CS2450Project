@@ -20,14 +20,14 @@ public class Main extends Application{
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		primaryStage.setWidth(800);
-		primaryStage.setHeight(600);
+		primaryStage.setWidth(1000);
+		primaryStage.setHeight(700);
 		primaryStage.setTitle("PDF Cropper");
 		
 		Pane canvas = new Pane();
 		Button loadFileButton = new Button("Load file...");
 		canvas.getChildren().add(loadFileButton);
-		Scene scene = new Scene(canvas,100,200);
+		Scene scene = new Scene(canvas);
 		
 		//fileChooser.showOpenDialog(primaryStage);
 		
@@ -43,8 +43,10 @@ public class Main extends Application{
 				File file = fileChooser.showOpenDialog(primaryStage);
 				Image image = new Image(file.toURI().toString());
 				ImageView imageView = new ImageView(image);
-				imageView.setLayoutX(200);
-				imageView.setLayoutY(200);
+				imageView.setLayoutX(50);
+				imageView.setLayoutY(50);
+				imageView.setFitHeight(400);
+				imageView.setFitWidth(400);
 				canvas.getChildren().add(imageView);
 				primaryStage.setScene(scene);
 				primaryStage.show();
