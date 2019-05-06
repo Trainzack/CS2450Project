@@ -42,7 +42,7 @@ public class Main extends Application{
 				fileChooser.setTitle("Open PDF");
 				File file = fileChooser.showOpenDialog(primaryStage);
 				FileChooser.ExtensionFilter extension = new FileChooser.ExtensionFilter("Image files", "*.png","*.jpg","*.gif");
-				file.getExtensionFilters().add(extension);
+				fileChooser.getExtensionFilters().add(extension);
 				Image image = new Image(file.toURI().toString());
 				ImageView imageView = new ImageView(image);
 				imageView.setLayoutX(50);
