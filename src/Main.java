@@ -39,10 +39,10 @@ public class Main extends Application{
 			@Override
 			public void handle(ActionEvent event) {
 				FileChooser fileChooser = new FileChooser();
-				fileChooser.setTitle("Open PDF");
-				File file = fileChooser.showOpenDialog(primaryStage);
 				FileChooser.ExtensionFilter extension = new FileChooser.ExtensionFilter("Image files", "*.png","*.jpg","*.gif");
 				fileChooser.getExtensionFilters().add(extension);
+				fileChooser.setTitle("Open PDF");
+				File file = fileChooser.showOpenDialog(primaryStage);
 				Image image = new Image(file.toURI().toString());
 				ImageView imageView = new ImageView(image);
 				imageView.setLayoutX(50);
