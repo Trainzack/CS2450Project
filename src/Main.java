@@ -1,4 +1,3 @@
-import java.awt.Paint;
 import java.io.File;
 
 
@@ -15,7 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.shape.Rectangle;
-
+import javafx.scene.layout.Pane;
 
 
 public class Main extends Application{
@@ -27,7 +26,7 @@ public class Main extends Application{
 		primaryStage.setWidth(1000);
 		primaryStage.setHeight(700);
 		primaryStage.setTitle("PDF Cropper");
-		
+
 		Pane canvas = new Pane();
 		Button loadFileButton = new Button("Load file...");
 		Button preset1 = new Button("Preset 1");
