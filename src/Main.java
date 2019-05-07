@@ -5,8 +5,10 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -14,8 +16,29 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.transform.Scale;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
+class ZoomableScrollPane extends ScrollPane{
+	Group zoomGroup;
+	Scale scaleTransform;
+	Node content;
+
+	public ZoomableScrollPane(Node content)
+	{
+		this.content = content;
+		Group contentGroup = new Group();
+		zoomGroup = new Group();
+		contentGroup.getChildren().add(zoomGroup);
+		zoomGroup.getChildren().add(content);
+		setContent(contentGroup);
+		scaleTransform = new Scale(1, 1, 0, 0);
+		zoomGroup.getTransforms().add(scaleTransform);
+
+	}
+}
 
 public class Main extends Application{
 	
@@ -27,7 +50,14 @@ public class Main extends Application{
 		primaryStage.setHeight(700);
 		primaryStage.setTitle("PDF Cropper");
 
-		Pane canvas = new Pane();
+		HBox canvas = new HBox();
+
+		Pane imagePane = new Pane();
+		ZoomableScrollPane imageCanvas = new ZoomableScrollPane(imagePane);
+		VBox controlBox = new VBox();
+
+		canvas.getChildren().add(controlBox);
+		canvas.getChildren().add(imageCanvas);
 		Button loadFileButton = new Button("Load file...");
 		Button preset1 = new Button("Preset 1");
 		Button preset2 = new Button("Preset 2");
@@ -42,13 +72,13 @@ public class Main extends Application{
 		preset3.setLayoutX(800);
 		preset3.setLayoutY(500);
 		
-		canvas.getChildren().add(preset1);
-		canvas.getChildren().add(preset2);
-		canvas.getChildren().add(preset3);
+		controlBox.getChildren().add(preset1);
+		controlBox.getChildren().add(preset2);
+		controlBox.getChildren().add(preset3);
 		
         
 		
-		canvas.getChildren().add(loadFileButton);
+		controlBox.getChildren().add(loadFileButton);
 		Scene scene = new Scene(canvas);
 		
 		//fileChooser.showOpenDialog(primaryStage);
@@ -64,7 +94,7 @@ public class Main extends Application{
 				currentRectangle.setFill(Color.TRANSPARENT);
 				currentRectangle.setStroke(Color.BLACK);
 				currentRectangle.setId("RECT");
-				canvas.getChildren().add(currentRectangle);
+				imagePane.getChildren().add(currentRectangle);
 				
 				//primaryStage.show();
 			}
@@ -79,7 +109,7 @@ public class Main extends Application{
 				currentRectangle = new Rectangle(50,50,300,400);
 				currentRectangle.setFill(Color.TRANSPARENT);
 				currentRectangle.setStroke(Color.BLACK);
-				canvas.getChildren().add(currentRectangle);
+				imagePane.getChildren().add(currentRectangle);
 				
 				//primaryStage.show();
 			}
@@ -93,7 +123,7 @@ public class Main extends Application{
 				currentRectangle = new Rectangle(50,50,400,200);
 				currentRectangle.setFill(Color.TRANSPARENT);
 				currentRectangle.setStroke(Color.BLACK);
-				canvas.getChildren().add(currentRectangle);
+				imagePane.getChildren().add(currentRectangle);
 				
 				//primaryStage.show();
 			}
@@ -115,7 +145,7 @@ public class Main extends Application{
 				imageView.setLayoutY(50);
 				imageView.setFitHeight(400);
 				imageView.setFitWidth(400);
-				canvas.getChildren().add(imageView);
+				imagePane.getChildren().add(imageView);
 				primaryStage.setScene(scene);
 				primaryStage.show();
 			}
