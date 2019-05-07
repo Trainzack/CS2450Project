@@ -59,24 +59,29 @@ public class Main extends Application{
 		canvas.getChildren().add(controlBox);
 		canvas.getChildren().add(imageCanvas);
 		Button loadFileButton = new Button("Load file...");
-		Button preset1 = new Button("Preset 1");
-		Button preset2 = new Button("Preset 2");
-		Button preset3 = new Button("Preset 3");
 		
-		preset1.setLayoutX(800);
-		preset1.setLayoutY(100);
+		int[][] presets = {{100, 200}, {400, 500}};
 		
-		preset2.setLayoutX(800);
-		preset2.setLayoutY(300);
+		for (int i = 0; i < presets.length; i++) {
+			int[] preset = presets[i];
+			Button p = new Button("Preset " + (i + 1));
+			controlBox.getChildren().add(p);
+			p.setOnAction(new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent event) {
+					currentRectangle = new Rectangle(50,50,50 + preset[0],50 + preset[1]);
+					currentRectangle.setFill(Color.TRANSPARENT);
+					currentRectangle.setStroke(Color.BLACK);
+					currentRectangle.setId("RECT");
+					imagePane.getChildren().add(currentRectangle);
+					
+					//primaryStage.show();
+				}
+				
+			});
+		}
 		
-		preset3.setLayoutX(800);
-		preset3.setLayoutY(500);
-		
-		controlBox.getChildren().add(preset1);
-		controlBox.getChildren().add(preset2);
-		controlBox.getChildren().add(preset3);
-		
-        
 		
 		controlBox.getChildren().add(loadFileButton);
 		Scene scene = new Scene(canvas);
@@ -86,49 +91,6 @@ public class Main extends Application{
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		
-		preset1.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-				currentRectangle = new Rectangle(50,50,400,400);
-				currentRectangle.setFill(Color.TRANSPARENT);
-				currentRectangle.setStroke(Color.BLACK);
-				currentRectangle.setId("RECT");
-				imagePane.getChildren().add(currentRectangle);
-				
-				//primaryStage.show();
-			}
-			
-		});
-		
-		preset2.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-
-				currentRectangle = new Rectangle(50,50,300,400);
-				currentRectangle.setFill(Color.TRANSPARENT);
-				currentRectangle.setStroke(Color.BLACK);
-				imagePane.getChildren().add(currentRectangle);
-				
-				//primaryStage.show();
-			}
-			
-		});
-		
-		preset3.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-				currentRectangle = new Rectangle(50,50,400,200);
-				currentRectangle.setFill(Color.TRANSPARENT);
-				currentRectangle.setStroke(Color.BLACK);
-				imagePane.getChildren().add(currentRectangle);
-				
-				//primaryStage.show();
-			}
-			
-		});
 		
 		loadFileButton.setOnAction(new EventHandler<ActionEvent>() {
 
