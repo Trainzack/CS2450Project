@@ -55,12 +55,13 @@ public class Main extends Application{
 		Pane imagePane = new Pane();
 		ZoomableScrollPane imageCanvas = new ZoomableScrollPane(imagePane);
 		VBox controlBox = new VBox();
-
+		controlBox.setMinWidth(100);
+		
 		canvas.getChildren().add(controlBox);
 		canvas.getChildren().add(imageCanvas);
 		Button loadFileButton = new Button("Load file...");
 		
-		int[][] presets = {{100, 200}, {400, 500}};
+		int[][] presets = {{50, 50, 100, 200}, {60, 60, 500, 390}};
 		
 		for (int i = 0; i < presets.length; i++) {
 			int[] preset = presets[i];
@@ -73,7 +74,7 @@ public class Main extends Application{
 					if (currentRectangle != null) {
 						imagePane.getChildren().remove(currentRectangle);
 					}
-					currentRectangle = new Rectangle(50,50,50 + preset[0],50 + preset[1]);
+					currentRectangle = new Rectangle(preset[0],preset[1],preset[2],preset[3]);
 					currentRectangle.setFill(new Color(0.4,0.4, 1,0.3));
 					currentRectangle.setStroke(new Color(0.4,0.4, 1,1));
 					currentRectangle.setId("RECT");
