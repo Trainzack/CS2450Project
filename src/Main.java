@@ -54,7 +54,7 @@ class ZoomableScrollPane extends ScrollPane{
 public class Main extends Application{
 	
 	private Rectangle currentRectangle;
-	private Image currentImage;
+	private ImageView currentImage;
 	
 	private double zoomFactor = 1.0;
 	
@@ -87,7 +87,7 @@ public class Main extends Application{
 				if (currentRectangle != null) {
 					imagePane.getChildren().remove(currentRectangle);
 				}
-				currentRectangle = new Rectangle(50,50,currentImage.getWidth(),currentImage.getHeight());
+				currentRectangle = new Rectangle(50,50,currentImage.getImage().getWidth(),currentImage.getImage().getHeight());
 				currentRectangle.setFill(new Color(0.4,0.4, 1,0.3));
 				currentRectangle.setStroke(new Color(0.4,0.4, 1,1));
 				currentRectangle.setId("RECT");
@@ -178,14 +178,17 @@ public class Main extends Application{
 				Image image = new Image(file.toURI().toString());
 				
 				ImageView imageView = new ImageView(image);
-				currentImage = image;
+				if (currentImage != null) {
+					imagePane.getChildren().remove(currentImage);
+				}
+				currentImage = imageView;
 				imageView.setLayoutX(50);
 				imageView.setLayoutY(50);
 				//imageView.setFitHeight(400);
 				//imageView.setFitWidth(400);
 				imagePane.getChildren().add(imageView);
-				primaryStage.setScene(scene);
-				primaryStage.show();
+				//primaryStage.setScene(scene);
+				//primaryStage.show();
 			}
 			
 		});
