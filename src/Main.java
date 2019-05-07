@@ -43,6 +43,7 @@ class ZoomableScrollPane extends ScrollPane{
 public class Main extends Application{
 	
 	private Rectangle currentRectangle;
+	private Image currentImage;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -60,6 +61,28 @@ public class Main extends Application{
 		canvas.getChildren().add(controlBox);
 		canvas.getChildren().add(imageCanvas);
 		Button loadFileButton = new Button("Load file...");
+		
+		
+		Button fullPicturePreset = new Button("Full picture");
+		controlBox.getChildren().add(fullPicturePreset);
+		fullPicturePreset.setOnAction(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent event) {
+				if (currentRectangle != null) {
+					imagePane.getChildren().remove(currentRectangle);
+				}
+				currentRectangle = new Rectangle(50,50,currentImage.getWidth(),currentImage.getHeight());
+				currentRectangle.setFill(new Color(0.4,0.4, 1,0.3));
+				currentRectangle.setStroke(new Color(0.4,0.4, 1,1));
+				currentRectangle.setId("RECT");
+				imagePane.getChildren().add(currentRectangle);
+				
+				
+			}
+			
+		});
+		
 		
 		int[][] presets = {{50, 50, 100, 200}, {60, 60, 500, 390}};
 		
@@ -106,7 +129,9 @@ public class Main extends Application{
 				fileChooser.setTitle("Open PDF");
 				File file = fileChooser.showOpenDialog(primaryStage);
 				Image image = new Image(file.toURI().toString());
+				
 				ImageView imageView = new ImageView(image);
+				currentImage = image;
 				imageView.setLayoutX(50);
 				imageView.setLayoutY(50);
 				//imageView.setFitHeight(400);
