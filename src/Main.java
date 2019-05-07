@@ -2,15 +2,20 @@ import java.io.File;
 
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
@@ -22,6 +27,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 class ZoomableScrollPane extends ScrollPane{
+	protected static final double SCALE_DELTA = 1.0;
 	Group zoomGroup;
 	Scale scaleTransform;
 	Node content;
@@ -36,7 +42,12 @@ class ZoomableScrollPane extends ScrollPane{
 		setContent(contentGroup);
 		scaleTransform = new Scale(1, 1, 0, 0);
 		zoomGroup.getTransforms().add(scaleTransform);
-
+		
+	}
+	
+	public void setZoom(double zoom) {
+		zoomGroup.setScaleX(zoom);
+		zoomGroup.setScaleY(zoom);
 	}
 }
 
@@ -44,6 +55,8 @@ public class Main extends Application{
 	
 	private Rectangle currentRectangle;
 	private Image currentImage;
+	
+	private double zoomFactor = 1.0;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -65,6 +78,8 @@ public class Main extends Application{
 		
 		Button fullPicturePreset = new Button("Full picture");
 		controlBox.getChildren().add(fullPicturePreset);
+		
+		
 		fullPicturePreset.setOnAction(new EventHandler<ActionEvent>(){
 
 			@Override
@@ -108,7 +123,39 @@ public class Main extends Application{
 				
 			});
 		}
+		HBox zoomControls = new HBox();
+
+		controlBox.getChildren().add(new Separator());
 		
+		Button zoomInButton = new Button("+");
+		Button zoomOutButton = new Button("-");
+		zoomControls.getChildren().add(zoomOutButton);
+		zoomControls.getChildren().add(zoomInButton);
+		
+		zoomInButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				zoomFactor *= 1.33;
+				imageCanvas.setZoom(zoomFactor);
+				System.out.println(zoomFactor);
+			}
+			
+		});
+		
+
+		zoomOutButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				zoomFactor /= 1.33;
+				imageCanvas.setZoom(zoomFactor);
+				System.out.println(zoomFactor);
+			}
+			
+		});
+		
+		controlBox.getChildren().add(zoomControls);
 		
 		controlBox.getChildren().add(loadFileButton);
 		Scene scene = new Scene(canvas);
