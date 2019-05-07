@@ -70,9 +70,12 @@ public class Main extends Application{
 
 				@Override
 				public void handle(ActionEvent event) {
+					if (currentRectangle != null) {
+						imagePane.getChildren().remove(currentRectangle);
+					}
 					currentRectangle = new Rectangle(50,50,50 + preset[0],50 + preset[1]);
-					currentRectangle.setFill(Color.TRANSPARENT);
-					currentRectangle.setStroke(Color.BLACK);
+					currentRectangle.setFill(new Color(0.4,0.4, 1,0.3));
+					currentRectangle.setStroke(new Color(0.4,0.4, 1,1));
 					currentRectangle.setId("RECT");
 					imagePane.getChildren().add(currentRectangle);
 					
