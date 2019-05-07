@@ -1,4 +1,6 @@
+import java.awt.Paint;
 import java.io.File;
+
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -9,14 +11,16 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
+import javafx.scene.shape.Rectangle;
 
 
 
 public class Main extends Application{
 	
+	private Rectangle currentRectangle;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -26,6 +30,25 @@ public class Main extends Application{
 		
 		Pane canvas = new Pane();
 		Button loadFileButton = new Button("Load file...");
+		Button preset1 = new Button("Preset 1");
+		Button preset2 = new Button("Preset 2");
+		Button preset3 = new Button("Preset 3");
+		
+		preset1.setLayoutX(800);
+		preset1.setLayoutY(100);
+		
+		preset2.setLayoutX(800);
+		preset2.setLayoutY(300);
+		
+		preset3.setLayoutX(800);
+		preset3.setLayoutY(500);
+		
+		canvas.getChildren().add(preset1);
+		canvas.getChildren().add(preset2);
+		canvas.getChildren().add(preset3);
+		
+        
+		
 		canvas.getChildren().add(loadFileButton);
 		Scene scene = new Scene(canvas);
 		
@@ -33,6 +56,50 @@ public class Main extends Application{
 		
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		
+		preset1.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				currentRectangle = new Rectangle(50,50,400,400);
+				currentRectangle.setFill(Color.TRANSPARENT);
+				currentRectangle.setStroke(Color.BLACK);
+				currentRectangle.setId("RECT");
+				canvas.getChildren().add(currentRectangle);
+				
+				//primaryStage.show();
+			}
+			
+		});
+		
+		preset2.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+
+				currentRectangle = new Rectangle(50,50,300,400);
+				currentRectangle.setFill(Color.TRANSPARENT);
+				currentRectangle.setStroke(Color.BLACK);
+				canvas.getChildren().add(currentRectangle);
+				
+				//primaryStage.show();
+			}
+			
+		});
+		
+		preset3.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				currentRectangle = new Rectangle(50,50,400,200);
+				currentRectangle.setFill(Color.TRANSPARENT);
+				currentRectangle.setStroke(Color.BLACK);
+				canvas.getChildren().add(currentRectangle);
+				
+				//primaryStage.show();
+			}
+			
+		});
 		
 		loadFileButton.setOnAction(new EventHandler<ActionEvent>() {
 
