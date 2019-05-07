@@ -99,7 +99,7 @@ public class Main extends Application{
 		});
 		
 		
-		int[][] presets = {{50, 50, 100, 200}, {60, 60, 500, 390}};
+		int[][] presets = {{150, 200, 700, 550}, {60, 60, 500, 390}};
 		
 		for (int i = 0; i < presets.length; i++) {
 			int[] preset = presets[i];
