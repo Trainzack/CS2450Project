@@ -54,7 +54,7 @@ class ZoomableScrollPane extends ScrollPane{
 public class Main extends Application{
 	
 	private Rectangle currentRectangle;
-	private Image currentImage;
+	private ImageView currentImage;
 	
 	private double zoomFactor = 1.0;
 	
@@ -87,7 +87,7 @@ public class Main extends Application{
 				if (currentRectangle != null) {
 					imagePane.getChildren().remove(currentRectangle);
 				}
-				currentRectangle = new Rectangle(50,50,currentImage.getWidth(),currentImage.getHeight());
+				currentRectangle = new Rectangle(50,50,currentImage.getImage().getWidth(),currentImage.getImage().getHeight());
 				currentRectangle.setFill(new Color(0.4,0.4, 1,0.3));
 				currentRectangle.setStroke(new Color(0.4,0.4, 1,1));
 				currentRectangle.setId("RECT");
@@ -99,8 +99,13 @@ public class Main extends Application{
 		});
 		
 		
+<<<<<<< HEAD
 		int[][] presets = {{50, 50, 200, 400}, {50, 50, 100, 400}, {50,50,300,500}, {50,50,500,700}};
 		String[] presetNames = {"4 x 3", "2 x 3", "5 x 7", "8.5 x 11"};
+=======
+		int[][] presets = {{150, 200, 700, 550}, {60, 60, 500, 390}};
+		
+>>>>>>> c9651d3f6b840993ac933e692ca963ada56c0706
 		for (int i = 0; i < presets.length; i++) {
 			int[] preset = presets[i];
 			Button p = new Button(presetNames[i]);
@@ -178,14 +183,17 @@ public class Main extends Application{
 				Image image = new Image(file.toURI().toString());
 				
 				ImageView imageView = new ImageView(image);
-				currentImage = image;
+				if (currentImage != null) {
+					imagePane.getChildren().remove(currentImage);
+				}
+				currentImage = imageView;
 				imageView.setLayoutX(50);
 				imageView.setLayoutY(50);
 				//imageView.setFitHeight(400);
 				//imageView.setFitWidth(400);
 				imagePane.getChildren().add(imageView);
-				primaryStage.setScene(scene);
-				primaryStage.show();
+				//primaryStage.setScene(scene);
+				//primaryStage.show();
 			}
 			
 		});
