@@ -99,11 +99,11 @@ public class Main extends Application{
 		});
 		
 		
-		int[][] presets = {{50, 50, 100, 200}, {60, 60, 500, 390}};
-		
+		int[][] presets = {{50, 50, 200, 400}, {50, 50, 100, 400}, {50,50,300,500}, {50,50,500,700}};
+		String[] presetNames = {"4 x 3", "2 x 3", "5 x 7", "8.5 x 11"};
 		for (int i = 0; i < presets.length; i++) {
 			int[] preset = presets[i];
-			Button p = new Button("Preset " + (i + 1));
+			Button p = new Button(presetNames[i]);
 			controlBox.getChildren().add(p);
 			p.setOnAction(new EventHandler<ActionEvent>() {
 
