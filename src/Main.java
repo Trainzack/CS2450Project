@@ -143,8 +143,8 @@ public class Main extends Application{
 				ImageView imageView = new ImageView(image);
 				imageView.setLayoutX(50);
 				imageView.setLayoutY(50);
-				imageView.setFitHeight(400);
-				imageView.setFitWidth(400);
+				//imageView.setFitHeight(400);
+				//imageView.setFitWidth(400);
 				imagePane.getChildren().add(imageView);
 				primaryStage.setScene(scene);
 				primaryStage.show();
